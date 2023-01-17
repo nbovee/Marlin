@@ -548,15 +548,15 @@ void CardReader::release() {
 void CardReader::openAndPrintFile(const char *name) {
   uint8_t cmdlen = 4 + strlen(name) + 1 + 3 + 1; // Room for "M23 ", filename, "\n", "M24", and null
   #if ENABLED(PASSWORD_AFTER_SD_PRINT_START)
-    cmdlen = 4 + strlen(name) + 1 + 4 + 1 + 3 + 1; // Room for "M23 ", filename, "\n", "M510", "\n", "M24", and null
+    cmdlen = 4 + strlen(name) + 1 + 3 + 1 + 4 + 1; // Room for "M23 ", filename, "\n", "M24", "\n", "M510", and null
   #endif
   char cmd[cmdlen]; 
   sprintf_P(cmd, M23_STR, name);
   for (char *c = &cmd[4]; *c; c++) *c = tolower(*c);
+  strcat_P(cmd, PSTR("\nM24"));
   #if ENABLED(PASSWORD_AFTER_SD_PRINT_START)
     strcat_P(cmd, PSTR("\nM510")); // Lock expecting the student printer to unlock. could M24 before the lock and not need to modify gcode.cpp
   #endif
-  strcat_P(cmd, PSTR("\nM24"));
   queue.inject(cmd);
 }
 
