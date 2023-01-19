@@ -555,7 +555,7 @@ void CardReader::openAndPrintFile(const char *name) {
   for (char *c = &cmd[4]; *c; c++) *c = tolower(*c);
   strcat_P(cmd, PSTR("\nM24"));
   #if ENABLED(PASSWORD_AFTER_SD_PRINT_START)
-    strcat_P(cmd, PSTR("\nM510")); // Lock expecting the student printer to unlock. could M24 before the lock and not need to modify gcode.cpp
+    strcat_P(cmd, PSTR("\nM510")); // Lock expecting the student printer to unlock.
   #endif
   queue.inject(cmd);
 }
