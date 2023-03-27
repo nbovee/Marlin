@@ -1509,6 +1509,7 @@
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
 #define PROBING_MARGIN 10
+#define PROBING_MARGIN_BACK 30
 #define PROBING_MARGIN_LEFT 45
 
 // X and Y axis travel speed (mm/min) between probes
@@ -2430,7 +2431,7 @@
  * the firmware with the feature disabled, reset EEPROM, and (optionally)
  * re-flash the firmware again with this feature enabled.
  */
-#define PASSWORD_FEATURE
+// #define PASSWORD_FEATURE
 #if ENABLED(PASSWORD_FEATURE)
   #define PASSWORD_LENGTH 4                 // (#) Number of digits (1-9). 3 or 4 is recommended
   //#define PASSWORD_ON_STARTUP
