@@ -1,3 +1,0 @@
-[submodule "Marlin/rowan_config"]
-	path = Marlin/rowan_config
-	url = https://github.com/nbovee/Rowan-Marlin-config.git
