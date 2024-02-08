@@ -19,7 +19,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-<<<<<<< HEAD
 
 /**
  * Made with Marlin Bitmap Converter
@@ -66,43 +65,6 @@ const unsigned char status_logo_bmp[] PROGMEM = {
 
 
 
-=======
-#pragma once
-
-/**
- * Custom Status Screen bitmap
- *
- * Place this file in the root with your configuration files
- * and enable CUSTOM_STATUS_SCREEN_IMAGE in Configuration.h.
- *
- * Use the Marlin Bitmap Converter to make your own:
- * https://marlinfw.org/tools/u8glib/converter.html
- */
-
-#define STATUS_LOGO_Y      5
-#define STATUS_LOGO_WIDTH 32
-
-const unsigned char status_logo_bmp[] PROGMEM = {
-  B00011100,B11110000,B00010001,B11000000,
-  B00100010,B10001000,B00110010,B00100000,
-  B00100000,B10001000,B00010010,B00100000,
-  B00100000,B11110011,B10010010,B00100000,
-  B00100000,B10100000,B00010010,B00100000,
-  B00100010,B10010000,B00010010,B00100000,
-  B00011100,B10001000,B00111001,B11000000,
-  B00000000,B00000000,B00000000,B00000000,
-  B00000000,B00000000,B00000000,B00000000,
-  B00000000,B00000000,B00000000,B00000000,
-  B00000000,B01000101,B11110000,B00000000,
-  B00000000,B01000100,B00100000,B00000000,
-  B00000000,B01000100,B01000000,B00000000,
-  B00000000,B01000100,B00100000,B00000000,
-  B00000000,B01000100,B00010000,B00000000,
-  B00000000,B00101001,B00010000,B00000000,
-  B00000000,B00010000,B11100000,B00000000,
-};
-
->>>>>>> 5f132d3fc7 (apply 2.1.2.1 Cr10V3 configs)
 //
 // Use default bitmaps
 //
@@ -115,8 +77,4 @@ const unsigned char status_logo_bmp[] PROGMEM = {
 #else
   #define STATUS_HEATERS_X      40
   #define STATUS_BED_X          80
-<<<<<<< HEAD
 #endif
-=======
-#endif
->>>>>>> 5f132d3fc7 (apply 2.1.2.1 Cr10V3 configs)
