@@ -555,10 +555,15 @@ void CardReader::release() {
  * Enqueues M23 and M24 commands to initiate a media print.
  */
 void CardReader::openAndPrintFile(const char *name) {
-  char cmd[4 + strlen(name) + 1 + 3 + 1]; // Room for "M23 ", filename, "\n", "M24", and null
-  sprintf_P(cmd, M23_STR, name);
-  for (char *c = &cmd[4]; *c; c++) *c = tolower(*c);
+  #if ENABLED(PASSWORD_AFTER_SD_PRINT_START)
+    char cmd[4 + strlen(name) + 1 + 3 + 1 + 4 + 1]; // Room for "M23 ", filename, "\n", "M24", "\n", "M510", and null
+  #else
+    char cmd[4 + strlen(name) + 1 + 3 + 1]; // Room for "M23 ", filename, "\n", "M24", and null
+  #endif
   strcat_P(cmd, PSTR("\nM24"));
+  #if ENABLED(PASSWORD_AFTER_SD_PRINT_START)
+    strcat_P(cmd, PSTR("\nM510")); // Lock expecting the student printer to unlock.
+  #endif
   queue.inject(cmd);
 }
 

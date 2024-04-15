@@ -41,6 +41,7 @@ public:
     private:
     static void authenticate_user(const screenFunc_t, const screenFunc_t);
     static void menu_password();
+    static void menu_password_rowan();
     static void menu_password_entry();
     static void screen_password_entry();
     static void screen_set_password();

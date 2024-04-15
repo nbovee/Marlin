@@ -40,38 +40,61 @@ bool authenticating; // = false
 char string[(PASSWORD_LENGTH) + 1];
 static uint8_t digit_no;
 
+// 
+// Screen for Rowan custom display of requirements
+// 
+
+void Password::menu_password_rowan() {
+    ui.defer_status_screen(!did_first_run); // No timeout to status before first auth
+
+  START_MENU();
+
+  // "Talk students through what they did wrong"
+  STATIC_ITEM_F(GET_TEXT_F(MSG_ROWAN_CONFIG), SS_CENTER|SS_INVERT);
+  STATIC_ITEM_F(GET_TEXT_F(MSG_ROWAN_INSTRUCT), SS_CENTER);
+  STATIC_ITEM_F(GET_TEXT_F(MSG_ROWAN_URL), SS_CENTER);
+  STATIC_ITEM_F(GET_TEXT_F(MSG_ROWAN_RESET), SS_CENTER);
+
+  END_MENU();
+}
+
+
 //
 // Screen for both editing and setting the password
 //
 void Password::menu_password_entry() {
-  ui.defer_status_screen(!did_first_run); // No timeout to status before first auth
+  #ifdef ROWAN_PASSWORD_FEATURE
+    menu_password_rowan();
+  #else
+    ui.defer_status_screen(!did_first_run); // No timeout to status before first auth
 
-  START_MENU();
+    START_MENU();
 
-  // "Login" or "New Code"
-  STATIC_ITEM_F(authenticating ? GET_TEXT_F(MSG_LOGIN_REQUIRED) : GET_TEXT_F(MSG_EDIT_PASSWORD), SS_CENTER|SS_INVERT);
+    // "Login" or "New Code"
+    STATIC_ITEM_F(authenticating ? GET_TEXT_F(MSG_LOGIN_REQUIRED) : GET_TEXT_F(MSG_EDIT_PASSWORD), SS_CENTER|SS_INVERT);
 
-  STATIC_ITEM_F(FPSTR(NUL_STR), SS_CENTER, string);
+    STATIC_ITEM_F(FPSTR(NUL_STR), SS_CENTER, string);
 
-  #if HAS_MARLINUI_U8GLIB
-    STATIC_ITEM_F(FPSTR(NUL_STR), SS_CENTER, "");
+    #if HAS_MARLINUI_U8GLIB
+      STATIC_ITEM_F(FPSTR(NUL_STR), SS_CENTER, "");
+    #endif
+
+    // Make the digit edit item look like a sub-menu
+    FSTR_P const label = GET_TEXT_F(MSG_ENTER_DIGIT);
+    EDIT_ITEM_F(uint8, label, &editable.uint8, 0, 9, digit_entered);
+    MENU_ITEM_ADDON_START(utf8_strlen(label) + 1);
+      lcd_put_u8str(F(" "));
+      lcd_put_lchar('1' + digit_no);
+      SETCURSOR_X(LCD_WIDTH - 2);
+      lcd_put_u8str(F(">"));
+    MENU_ITEM_ADDON_END();
+
+    ACTION_ITEM(MSG_START_OVER, start_over);
+
+    if (!authenticating) BACK_ITEM(MSG_BUTTON_CANCEL);
+
+    END_MENU();
   #endif
-
-  // Make the digit edit item look like a sub-menu
-  FSTR_P const label = GET_TEXT_F(MSG_ENTER_DIGIT);
-  EDIT_ITEM_F(uint8, label, &editable.uint8, 0, 9, digit_entered);
-  MENU_ITEM_ADDON_START(utf8_strlen(label) + 1);
-    lcd_put_u8str(F(" "));
-    lcd_put_lchar('1' + digit_no);
-    SETCURSOR_X(LCD_WIDTH - 2);
-    lcd_put_u8str(F(">"));
-  MENU_ITEM_ADDON_END();
-
-  ACTION_ITEM(MSG_START_OVER, start_over);
-
-  if (!authenticating) BACK_ITEM(MSG_BUTTON_CANCEL);
-
-  END_MENU();
 }
 
 //

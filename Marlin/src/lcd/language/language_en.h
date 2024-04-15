@@ -782,7 +782,10 @@ namespace Language_en {
   LSTR MSG_START_OVER                     = _UxGT("Start Over");
   LSTR MSG_REMINDER_SAVE_SETTINGS         = _UxGT("Remember to Save!");
   LSTR MSG_PASSWORD_REMOVED               = _UxGT("Password Removed");
-
+  LSTR MSG_ROWAN_CONFIG                   = _UxGT("INCORRECT CONFIG");
+  LSTR MSG_ROWAN_INSTRUCT                 = _UxGT("Follow directions at:");
+  LSTR MSG_ROWAN_URL                      = _UxGT("go.rowan.edu/meshop");
+  LSTR MSG_ROWAN_RESET                    = _UxGT("& reboot this printer");
   //
   // Filament Change screens show up to 3 lines on a 4-line display
   //                        ...or up to 2 lines on a 3-line display
